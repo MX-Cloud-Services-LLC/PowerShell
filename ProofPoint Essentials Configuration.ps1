@@ -1,3 +1,22 @@
+<# 
+  Date:     02-06-2020
+  By:       Jason Robertson
+  Company:  MX Cloud Services LLC
+  
+  Warranty: No warranty, support or gaurantee is given with the use of the script. 
+            Script is designed for Internal use for MX Cloud Services LLC.
+  
+  Scope:    
+    This script is used to configure the following items: 
+      1. Create a Transport Rule that sets the Spam Confidence Level (SCL) to -1 aka ByPass SPAM Filtering.
+      2. Create a Inbound Connector from ProofPoint Essentials IP Address Ranges and Enforce TLS
+      3. Create a Outbound Connector to ProofPoint Essentials for all Recipient Domains and TLS Settings of Encryption Only.
+   
+  Version History: 
+    1.0 Created the intial file and uploaded to GitHub. 
+    1.1 Confirmed and finalized the script, created Script Information. 
+#>
+
 #region ProofPoint Essentials IP Ranges AMER 
 $ProofPointIPRanges = New-Object -TypeName 'System.Collections.Generic.List[string]'
 $ProofPointIPRanges.Add('148.163.159.0/24')
@@ -74,7 +93,8 @@ $OutboundConnector.ConnectorType     = 'Partner'
 $OutboundConnector.RecipientDomains  = '*'
 #endregion
 
-
+#region Create TransportRule, Inbound Connector and Outbound Connector.
 New-TransportRule     @TransportRule
 New-InboundConnector  @InboundConnector
 New-OutboundConnector @OutboundConnector
+#endregion
